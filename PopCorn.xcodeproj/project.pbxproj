@@ -99,6 +99,7 @@
 		769CC4C9262574CB0071B1AB /* PopCorn */ = {
 			isa = PBXGroup;
 			children = (
+				769CC4FD262598180071B1AB /* Modules */,
 				769CC4CA262574CB0071B1AB /* AppDelegate.swift */,
 				769CC4CC262574CB0071B1AB /* SceneDelegate.swift */,
 				769CC4CE262574CB0071B1AB /* ViewController.swift */,
@@ -126,6 +127,29 @@
 				769CC4EE262574CD0071B1AB /* Info.plist */,
 			);
 			path = PopCornUITests;
+			sourceTree = "<group>";
+		};
+		769CC4FD262598180071B1AB /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				769CC4FE262598230071B1AB /* Movies */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		769CC4FE262598230071B1AB /* Movies */ = {
+			isa = PBXGroup;
+			children = (
+				769CC4FF2625982A0071B1AB /* ViewControllers */,
+			);
+			path = Movies;
+			sourceTree = "<group>";
+		};
+		769CC4FF2625982A0071B1AB /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewControllers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
