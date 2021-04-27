@@ -25,10 +25,8 @@ class MovieDetailsViewController: UIViewController {
         MovieSubTitle.text = unFilm.subTitle
         MovieSynopsis.text = unFilm.synopsis
         MovieYear.text = String(unFilm.releaseYear)
-        MovieDuration.text = String(unFilm.title)
-        for genre in unFilm.genres {
-            //MovieGenres.addSubview(<#T##view: UIView##UIView#>)
-        }
+        MovieDuration.text = String(unFilm.duration)
+     
     }
 
 
