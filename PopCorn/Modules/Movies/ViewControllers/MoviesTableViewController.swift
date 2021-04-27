@@ -53,6 +53,12 @@ class MoviesTableViewController: UITableViewController {
         print(indexPath)
         let movie : Movie = mesMovies.Movies[indexPath.item]
         print("Movie with title \(movie.title) touched - index path \(indexPath)")
+        
+        let destController : MovieDetailsViewController = storyboard?.instantiateViewController(withIdentifier: "MovieDetails") as!MovieDetailsViewController
+        destController.unFilm = movie
+        
+        //let destController : UIViewController = MovieDetailsViewController(nibName :"MovieDetailsViewController",bundle : nil)
+        navigationController?.pushViewController(destController, animated: true)
     }
 
     /*

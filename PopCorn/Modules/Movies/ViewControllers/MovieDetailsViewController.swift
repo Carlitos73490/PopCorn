@@ -15,17 +15,20 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var MovieYear: UILabel!
     @IBOutlet weak var MovieDuration: UILabel!
     @IBOutlet weak var MovieGenres: UIStackView!
+    var unFilm : Movie?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let unFilm : Movie = Movie(vtitle : "John Wick 3",vsubTitle: "Parrabellum",vreleaseYear: 2019,vduration: 1,vgenres: Array(arrayLiteral: "Action","Aventure"),vsynopsis: "LoremIpsum")
+        //let unFilm : Movie = Movie(vtitle : "John Wick 3",vsubTitle: "Parrabellum",vreleaseYear: 2019,vduration: 1,vgenres: Array(arrayLiteral: "Action","Aventure"),vsynopsis: "LoremIpsum")
         // Do any additional setup after loading the view.
         
-        MovieTitle.text = unFilm.title
-        MovieSubTitle.text = unFilm.subTitle
-        MovieSynopsis.text = unFilm.synopsis
-        MovieYear.text = String(unFilm.releaseYear)
-        MovieDuration.text = String(unFilm.duration)
+    
+        
+        MovieTitle.text = unFilm?.title
+        MovieSubTitle.text = unFilm?.subTitle
+        MovieSynopsis.text = unFilm?.synopsis
+        MovieYear.text = String(unFilm!.releaseYear)
+        MovieDuration.text = String(unFilm!.duration)
      
     }
 
