@@ -34,7 +34,7 @@
         <!--Movies Table View Controller-->
         <scene sceneID="slc-PY-1Ra">
             <objects>
-                <viewController id="FhC-rz-rPZ" customClass="MoviesTableViewController" customModule="PopCorn" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MesMovies" id="FhC-rz-rPZ" customClass="MoviesTableViewController" customModule="PopCorn" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="TEh-N4-YPx">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -50,15 +50,15 @@
         <scene sceneID="RJ4-4i-13n">
             <objects>
                 <collectionViewController id="zD7-BD-tt9" customClass="MovieCategoriesCollectionViewController" customModule="PopCorn" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="452-PQ-S0T">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleAspectFit" dataMode="prototypes" id="452-PQ-S0T">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="0Hb-6m-tEz">
-                            <size key="itemSize" width="128" height="128"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" sectionInsetReference="safeArea" id="0Hb-6m-tEz">
+                            <size key="itemSize" width="0.0" height="0.0"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
                             <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <inset key="sectionInset" minX="5" minY="0.0" maxX="5" maxY="0.0"/>
                         </collectionViewFlowLayout>
                         <cells/>
                         <connections>
@@ -68,14 +68,6 @@
                     </collectionView>
                     <navigationItem key="navigationItem" id="yyT-9F-t6I">
                         <nil key="title"/>
-                        <button key="titleView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" id="a8r-6Z-as0">
-                            <rect key="frame" x="184" y="7" width="46" height="30"/>
-                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <state key="normal" title="Button"/>
-                            <connections>
-                                <segue destination="FhC-rz-rPZ" kind="show" id="YhE-io-Sbr"/>
-                            </connections>
-                        </button>
                     </navigationItem>
                 </collectionViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="PIv-P3-WWw" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

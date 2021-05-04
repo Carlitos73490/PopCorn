@@ -11,26 +11,22 @@ class MoviesTableViewController: UITableViewController {
     let mesMovies = Movies()
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupViews()
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.register(UINib(nibName : "MovieTableViewCell",bundle: nil), forCellReuseIdentifier: MovieTableViewCell.reuseId)
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
-    // MARK: - Table view data source
-    func setupViews(){
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.register(UINib(nibName : "MovieTableViewCell",bundle: nil), forCellReuseIdentifier: MovieTableViewCell.reuseId)
-        //tableView.register(UITableViewCell.self, forCellReuseIdentifier: MovieTableViewCell.reuseId)
-    }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
+    // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print(mesMovies.Movies.count)
         return mesMovies.Movies.count

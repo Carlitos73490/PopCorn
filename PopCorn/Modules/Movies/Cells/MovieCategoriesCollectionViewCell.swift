@@ -8,10 +8,16 @@
 import UIKit
 
 class MovieCategoriesCollectionViewCell: UICollectionViewCell {
+    @IBOutlet weak var titleLabel: UILabel!
+    
+
+    
+    static let reuseId : String = "MovieCategoriesCollectionViewCellReuseID"
 
     override func awakeFromNib() {
         super.awakeFromNib()
-        // Initialization code
+        titleLabel.text = nil
     }
 
+    
 }
