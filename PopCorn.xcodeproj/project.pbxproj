@@ -7,8 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		760456E52641B354006C60C0 /* MovieCategoriesCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 760456E32641B354006C60C0 /* MovieCategoriesCollectionViewCell.swift */; };
+		760456E62641B354006C60C0 /* MovieCategoriesCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 760456E42641B354006C60C0 /* MovieCategoriesCollectionViewCell.xib */; };
 		76266A2B2638174F0056BD7F /* MovieCategoriesCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76266A292638174F0056BD7F /* MovieCategoriesCollectionViewController.swift */; };
-		76266A2C2638174F0056BD7F /* MovieCategoriesCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 76266A2A2638174F0056BD7F /* MovieCategoriesCollectionViewController.xib */; };
 		76266A312638187F0056BD7F /* Categories.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76266A302638187F0056BD7F /* Categories.swift */; };
 		76266A36263818F30056BD7F /* Categorie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76266A35263818F30056BD7F /* Categorie.swift */; };
 		769CC4CB262574CB0071B1AB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 769CC4CA262574CB0071B1AB /* AppDelegate.swift */; };
@@ -47,8 +48,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		760456E32641B354006C60C0 /* MovieCategoriesCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCategoriesCollectionViewCell.swift; sourceTree = "<group>"; };
+		760456E42641B354006C60C0 /* MovieCategoriesCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieCategoriesCollectionViewCell.xib; sourceTree = "<group>"; };
 		76266A292638174F0056BD7F /* MovieCategoriesCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieCategoriesCollectionViewController.swift; sourceTree = "<group>"; };
-		76266A2A2638174F0056BD7F /* MovieCategoriesCollectionViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MovieCategoriesCollectionViewController.xib; sourceTree = "<group>"; };
 		76266A302638187F0056BD7F /* Categories.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categories.swift; sourceTree = "<group>"; };
 		76266A35263818F30056BD7F /* Categorie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Categorie.swift; sourceTree = "<group>"; };
 		769CC4C7262574CB0071B1AB /* PopCorn.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PopCorn.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -179,7 +181,6 @@
 				76E8A3622636EE7B00B69272 /* MoviesTableViewController.swift */,
 				76E8A3632636EE7B00B69272 /* MoviesTableViewController.xib */,
 				76266A292638174F0056BD7F /* MovieCategoriesCollectionViewController.swift */,
-				76266A2A2638174F0056BD7F /* MovieCategoriesCollectionViewController.xib */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -200,6 +201,8 @@
 			children = (
 				76E8A3582636EE5300B69272 /* MovieTableViewCell.swift */,
 				76E8A3592636EE5300B69272 /* MovieTableViewCell.xib */,
+				760456E32641B354006C60C0 /* MovieCategoriesCollectionViewCell.swift */,
+				760456E42641B354006C60C0 /* MovieCategoriesCollectionViewCell.xib */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -312,7 +315,7 @@
 				769CC51E2625C91E0071B1AB /* Assets.xcassets in Resources */,
 				769CC4D2262574CB0071B1AB /* Main.storyboard in Resources */,
 				76E8A3652636EE7B00B69272 /* MoviesTableViewController.xib in Resources */,
-				76266A2C2638174F0056BD7F /* MovieCategoriesCollectionViewController.xib in Resources */,
+				760456E62641B354006C60C0 /* MovieCategoriesCollectionViewCell.xib in Resources */,
 				76E8A3472636C85F00B69272 /* MovieDetailsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -345,6 +348,7 @@
 				769CC4CF262574CB0071B1AB /* ViewController.swift in Sources */,
 				76E8A35A2636EE5300B69272 /* MovieTableViewCell.swift in Sources */,
 				76266A2B2638174F0056BD7F /* MovieCategoriesCollectionViewController.swift in Sources */,
+				760456E52641B354006C60C0 /* MovieCategoriesCollectionViewCell.swift in Sources */,
 				769CC4CB262574CB0071B1AB /* AppDelegate.swift in Sources */,
 				76266A312638187F0056BD7F /* Categories.swift in Sources */,
 				769CC4CD262574CB0071B1AB /* SceneDelegate.swift in Sources */,

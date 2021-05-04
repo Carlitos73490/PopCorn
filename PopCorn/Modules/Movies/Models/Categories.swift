@@ -11,8 +11,8 @@ struct Categories {
 var Categories : Array<Categorie>
     init(){
         Categories = Array()
-        for i in 0...10 {
-            let uneCategorie: Categorie = Categorie(vid : i,vnom : "Action")
+        for i in 0...8 {
+            let uneCategorie: Categorie = Categorie(vid : i,vnom : "Action" + String(i))
             Categories.append(uneCategorie)
         }
     }
