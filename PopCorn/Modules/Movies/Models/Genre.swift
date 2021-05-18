@@ -7,14 +7,13 @@
 
 import Foundation
 
-struct Categorie{
+struct Genre : Decodable{
     var id : Int
-    var nom : String
+    var name : String
    
-    
-    init(vid: Int,vnom : String) {
+   init(vid: Int,vname : String) {
         id = vid
-        nom = vnom
-       }
+       name = vname
+      }
 
 }
