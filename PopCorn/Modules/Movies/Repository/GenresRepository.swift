@@ -40,9 +40,9 @@ class GenresRepository{
         //let jsonDecoder = JSONDecoder()
         //jsonDecoder.dataDecodingStrategy = .iso8601
         
-        
-        
+    
     }
+
 }
 
 

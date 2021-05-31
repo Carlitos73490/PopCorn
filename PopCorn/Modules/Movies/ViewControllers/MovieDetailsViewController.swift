@@ -15,6 +15,8 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var MovieYear: UILabel!
     @IBOutlet weak var MovieDuration: UILabel!
     @IBOutlet weak var MovieGenres: UIStackView!
+    @IBOutlet weak var MoviePoster: UIImageView!
+    @IBOutlet weak var MovieAffiche: UIImageView!
     var unFilm : Movie?
     
     override func viewDidLoad() {
@@ -25,14 +27,26 @@ class MovieDetailsViewController: UIViewController {
     
         
         MovieTitle.text = unFilm?.title
-        MovieSubTitle.text = unFilm?.subTitle
-        MovieSynopsis.text = unFilm?.synopsis
-        MovieYear.text = String(unFilm!.releaseYear)
-        MovieDuration.text = String(unFilm!.duration)
+        //MovieSubTitle.text = unFilm?.subTitle
+        MovieSynopsis.text = unFilm?.overview
+        MovieYear.text = String(unFilm!.release_date)
+        //MovieDuration.text = String(unFilm!.duration)
      
+        let url = URL(string: "https://image.tmdb.org/t/p/w500/\(unFilm!.poster_path)")!
+        
+        DispatchQueue.main.async(execute: { () -> Void in
+            let repository = MoviesRepository()
+            repository.getImgData(from: url, completion: {(data) in
+                guard let data = data else{
+                    self.MovieAffiche.image = UIImage(named: "img")
+                    return}
+                    self.MovieAffiche.image =  UIImage(data: data)
+                       })
+            })
     }
 
 
+   
     
   
     

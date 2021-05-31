@@ -8,8 +8,22 @@
 import UIKit
 
 class MoviesTableViewController: UITableViewController {
-    let mesMovies = Movies()
+    
+    var genre_id : Int?
+    var repository : MoviesRepository
+    var lesMovies : Array<Movie> = Array()
+    
+    required init?(coder: NSCoder) {
+        repository = MoviesRepository()
+        super.init(coder: coder)
+ 
+    }
+    
+    
     override func viewDidLoad() {
+
+    
+        
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
@@ -17,9 +31,15 @@ class MoviesTableViewController: UITableViewController {
         
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        guard let genre_id : Int = genre_id else {
+           return
+        }
+        repository.fetchMoviesByGenreIdPopularityDesc(genre_id: genre_id,completion: {(responseMovies) in
+            self.lesMovies = responseMovies
+            self.tableView.reloadData()
+           
+        })
+     
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -28,27 +48,42 @@ class MoviesTableViewController: UITableViewController {
     
     // MARK: - Table view data source
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(mesMovies.Movies.count)
-        return mesMovies.Movies.count
+        return lesMovies.count
     }
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.reuseId, for: indexPath) as! MovieTableViewCell
 
-        let movie : Movie = mesMovies.Movies[indexPath.item]
+        let movie : Movie = lesMovies[indexPath.item]
         cell.titleLabel.text = movie.title
-        cell.subTitleLabel.text = movie.subTitle
-        cell.dateLabel.text = String(movie.releaseYear)
-        cell.shortSynopsisLabel.text = String(movie.synopsis.prefix(50))
+        //cell.subTitleLabel.text = movie.subTitle
+        cell.dateLabel.text = String(movie.release_date)
+        //cell.shortSynopsisLabel.text = String(movie.overview.prefix(50))
+        cell.shortSynopsisLabel.text = movie.overview
+        cell.previewImage.image = nil
+        let url = URL(string: "https://image.tmdb.org/t/p/w154/\(movie.poster_path)")!
+        
+        DispatchQueue.main.async(execute: { () -> Void in
+            self.repository.getImgData(from: url, completion: {(data) in
+                guard let data = data else{
+                    cell.previewImage.image = UIImage(named: "img")
+                    return}
+                cell.previewImage.image =  UIImage(data: data)
+                       })
+            //cell.reloadInputViews()
+                //self.tableView.reloadData()
+            })
+            
+        
         return cell
         
     }
     
     override func tableView(_ tableView: UITableView,didSelectRowAt indexPath : IndexPath){
-        print(indexPath)
-        let movie : Movie = mesMovies.Movies[indexPath.item]
-        print("Movie with title \(movie.title) touched - index path \(indexPath)")
+        //print(indexPath)
+        let movie : Movie = lesMovies[indexPath.item]
+        //print("Movie with title \(movie.title) touched - index path \(indexPath)")
         
         let destController : MovieDetailsViewController = storyboard?.instantiateViewController(withIdentifier: "MovieDetails") as!MovieDetailsViewController
         destController.unFilm = movie
