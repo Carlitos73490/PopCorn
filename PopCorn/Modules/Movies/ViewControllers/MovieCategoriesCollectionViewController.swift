@@ -96,17 +96,41 @@ class MovieCategoriesCollectionViewController: UICollectionViewController, UICol
         let genre : Genre = lesGenres[indexPath.item]
         
         cell.titleLabel.text = genre.name
-        cell.backgroundColor = randomColor()
+        cell.backgroundColor = getColor(i : indexPath.item)
         cell.layer.cornerRadius = 10
     
         return cell
     }
     
-     func randomColor() -> UIColor{
-        return UIColor(red: .random(in: 0.5...1),
-                       green: .random(in: 0.5...1),
-                       blue: .random(in: 0.5...1),
-                          alpha: 1.0)
+    func getColor(i : Int) -> UIColor{
+//        return UIColor(red: .random(in: 0.5...1),
+//                       green: .random(in: 0.5...1),
+//                       blue: .random(in: 0.5...1),
+//                          alpha: 1.0)
+        var colors : Array<UIColor> = Array()
+        colors.append(UIColor(red: CGFloat(250/255.0), green: CGFloat(211/255.0), blue: CGFloat(144/255.0), alpha: CGFloat(1.0)))
+        colors.append(UIColor(red: CGFloat(248/255.0), green: CGFloat(194/255.0), blue: CGFloat( 145/255.0), alpha: CGFloat(1.0)))
+        colors.append(UIColor(red: CGFloat(106/255.0), green: CGFloat(137/255.0), blue: CGFloat( 204/255.0), alpha: CGFloat(1.0)))
+        colors.append(UIColor(red: CGFloat(130/255.0), green: CGFloat(204/255.0), blue: CGFloat( 221/255.0), alpha: CGFloat(1.0)))
+        colors.append(UIColor(red: CGFloat(184/255.0), green: CGFloat(184/255.0), blue: CGFloat( 148/255.0), alpha: CGFloat(1.0)))
+        colors.append(UIColor(red: CGFloat(229/255.0), green: CGFloat(229/255.0), blue: CGFloat( 80/255.0), alpha: CGFloat(1.0)))
+        colors.append(UIColor(red: 0.29, green: 0.41, blue: 0.74, alpha: 1.00))
+        colors.append(UIColor(red: 0.38, green: 0.64, blue: 0.74, alpha: 1.00))
+        colors.append(UIColor(red: 0.47, green: 0.88, blue: 0.56, alpha: 1.00))
+        colors.append(UIColor(red: 0.98, green: 0.60, blue: 0.23, alpha: 1.00))
+        colors.append(UIColor(red: 0.92, green: 0.18, blue: 0.02, alpha: 1.00))
+        colors.append(UIColor(red: 0.12, green: 0.22, blue: 0.60, alpha: 1.00))
+        colors.append(UIColor(red: CGFloat(246/255.0), green: CGFloat(246/255.0), blue: CGFloat( 59/255.0), alpha: CGFloat(1.0)))
+        colors.append(UIColor(red: 0.24, green: 0.04, blue: 0.60, alpha: 1.00))
+        colors.append(UIColor(red: 0.12, green: 0.22, blue: 0.60, alpha: 1.00))
+        colors.append(UIColor(red: 0.24, green: 0.39, blue: 0.51, alpha: 1.00))
+        colors.append(UIColor(red: 0.22, green: 0.68, blue: 0.66, alpha: 1.00))
+        colors.append(UIColor(red: 0.90, green: 0.56, blue: 0.15, alpha: 1.00))
+        colors.append(UIColor(red: 0.72, green: 0.08, blue: 0.25, alpha: 1.00))
+        colors.append(UIColor(red: 0.05, green: 0.14, blue: 0.38, alpha: 1.00))
+        colors.append(UIColor(red: 0.04, green: 0.24, blue: 0.38, alpha: 1.00))
+        colors.append(UIColor(red: 0.03, green: 0.60, blue: 0.57, alpha: 1.00))
+        return colors[i % colors.count]
        }
 
     // MARK: UICollectionViewDelegate
