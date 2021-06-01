@@ -18,23 +18,19 @@ class MovieCategoriesCollectionViewController: UICollectionViewController, UICol
         let minimumInteritemSpacing: CGFloat = 10
         let cellsPerRow = 2
     
-    var repository : GenresRepository
+    var repository : GenresRepository = GenresRepository()
     var lesGenres : Array<Genre> = Array()
     
-    required init?(coder: NSCoder) {
-        repository = GenresRepository()
-         super.init(coder: coder)
-        // initialize what is needed
-     }
-    
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
-        lesGenres = repository.fetchGenres()
-        //let layout:UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        //layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        //collectionView.collectionViewLayout = layout
-        
+        repository.fetchGenres(completion: {(genres) in
+            self.lesGenres = genres
+            DispatchQueue.main.async(execute: { () -> Void in
+                self.collectionView.reloadData()
+                })
+        })
+    
         
         //delegate
         collectionView.delegate = self

@@ -16,48 +16,125 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var MovieDuration: UILabel!
     @IBOutlet weak var MovieGenres: UIStackView!
     @IBOutlet weak var MoviePoster: UIImageView!
-    @IBOutlet weak var MovieAffiche: UIImageView!
-    var unFilm : Movie?
+    @IBOutlet weak var MovieBackground: UIImageView!
+    @IBOutlet weak var TrailersStackView: UIStackView!
+    
+    var repository : MoviesRepository
+    var MoviePreview : MoviePreview?
+    
+    required init?(coder: NSCoder) {
+        repository = MoviesRepository()
+        super.init(coder: coder)
+ 
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //let unFilm : Movie = Movie(vtitle : "John Wick 3",vsubTitle: "Parrabellum",vreleaseYear: 2019,vduration: 1,vgenres: Array(arrayLiteral: "Action","Aventure"),vsynopsis: "LoremIpsum")
-        // Do any additional setup after loading the view.
-        
-    
-        
-        MovieTitle.text = unFilm?.title
-        //MovieSubTitle.text = unFilm?.subTitle
-        MovieSynopsis.text = unFilm?.overview
-        MovieYear.text = String(unFilm!.release_date)
-        //MovieDuration.text = String(unFilm!.duration)
+        MoviePoster.image = nil
+        MovieBackground.image = nil
      
-        let url = URL(string: "https://image.tmdb.org/t/p/w500/\(unFilm!.poster_path)")!
+        repository.fetchMoviesDetailsById(movie_id: MoviePreview!.id, completion: {(movie) in
         
-        DispatchQueue.main.async(execute: { () -> Void in
-            let repository = MoviesRepository()
-            repository.getImgData(from: url, completion: {(data) in
+            let url2 = URL(string: "https://image.tmdb.org/t/p/w500/\(movie.backdrop_path)")!
+           
+            if movie.video {
+                self.repository.getTrailersById(movie_id: self.MoviePreview!.id , completion: {(data) in
+                    
+                    var lien : String = ""
+                    data.forEach{(trailer) in
+                        
+                        if(trailer.site == "youtube"){
+                            lien = "https://www.youtube.com/watch?v=\(trailer.key)"
+                        } else if(trailer.site == "vimeo"){
+                            lien = "https://vimeo.com/\(trailer.key)"
+                        }
+                        
+                        DispatchQueue.main.async(execute: { () -> Void in
+                            let TrailerButton = UIButton()
+                            TrailerButton.setTitle(lien,for: .normal)
+                            TrailerButton.addTarget(self, action: "trailerClicked:", for: .touchUpInside)
+                           
+                            self.TrailersStackView.addArrangedSubview(TrailerButton)
+                            })
+                    }
+                    
+                })
+            } else {
+                DispatchQueue.main.async(execute: { () -> Void in
+                    let textLabel = UILabel()
+                    textLabel.text  = "Pas de videos"
+                    textLabel.textAlignment = .center
+                    self.TrailersStackView.addArrangedSubview(textLabel)
+                    })
+            }
+           
+
+
+            let formatter = DateComponentsFormatter()
+            formatter.allowedUnits = [.hour, .minute, .second]
+            formatter.unitsStyle = .full
+            let movieDuration = formatter.string(from: TimeInterval((movie.runtime * 60)))!
+            DispatchQueue.main.async(execute: { () -> Void in
+                self.MovieDuration.text = String(movieDuration)
+                })
+
+            
+            movie.genres.forEach{(genre) in
+                DispatchQueue.main.async(execute: { () -> Void in
+                    let textLabel = UILabel()
+                    textLabel.text  = genre.name
+                    textLabel.textAlignment = .center
+                    self.MovieGenres.addArrangedSubview(textLabel)
+                    })
+            }
+            
+            self.repository.getImgData(from: url2, completion: {(data) in
                 guard let data = data else{
-                    self.MovieAffiche.image = UIImage(named: "img")
                     return}
-                    self.MovieAffiche.image =  UIImage(data: data)
-                       })
-            })
+                DispatchQueue.main.async(execute: { () -> Void in
+                    self.MovieBackground.image =  UIImage(data: data)
+                    })
+                    })
+            
+           
+        })
+        
+        MovieTitle.text = MoviePreview?.title
+        //MovieSubTitle.text = unFilm?.subTitle
+        MovieSynopsis.text = MoviePreview?.overview
+        MovieYear.text = String(MoviePreview!.release_date)
+   
+     
+        let url = URL(string: "https://image.tmdb.org/t/p/w500/\(MoviePreview!.poster_path)")!
+        
+        repository.getImgData(from: url, completion: {(data) in
+            guard let data = data else{
+                DispatchQueue.main.async(execute: { () -> Void in
+                    self.MoviePoster.image = UIImage(named: "img")
+                    })
+                return}
+            DispatchQueue.main.async(execute: { () -> Void in
+        self.MoviePoster.image =  UIImage(data: data)                })
+    })
+        
+
+        
     }
 
-
-   
     
-  
-    
-    var urlBA : String = "https://www.youtube.com/watch?v=YIx4nbTSV_Q"
 
 
     @IBAction func playBA(_ sender: Any) {
-        print("test");
-        if let url = URL(string: urlBA) {
-            UIApplication.shared.open(url)
-        }
+        openUrl(url : URL(string: "https://www.youtube.com/watch?v=YIx4nbTSV_Q")!)
+    }
+    
+    @IBAction func trailerClicked(_ sender: UIButton) {
+        openUrl(url : URL(string: sender.title( for: .normal)!)!)
+    }
+    
+    
+    func openUrl(url : URL) {
+        UIApplication.shared.open(url)
     }
 
     /*

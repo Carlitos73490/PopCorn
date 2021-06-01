@@ -10,14 +10,8 @@ import UIKit
 class MoviesTableViewController: UITableViewController {
     
     var genre_id : Int?
-    var repository : MoviesRepository
-    var lesMovies : Array<Movie> = Array()
-    
-    required init?(coder: NSCoder) {
-        repository = MoviesRepository()
-        super.init(coder: coder)
- 
-    }
+    var repository : MoviesRepository = MoviesRepository()
+    var lesMovies : Array<MoviePreview> = Array()
     
     
     override func viewDidLoad() {
@@ -36,8 +30,9 @@ class MoviesTableViewController: UITableViewController {
         }
         repository.fetchMoviesByGenreIdPopularityDesc(genre_id: genre_id,completion: {(responseMovies) in
             self.lesMovies = responseMovies
-            self.tableView.reloadData()
-           
+            DispatchQueue.main.async(execute: { () -> Void in
+                self.tableView.reloadData()
+                })
         })
      
     }
@@ -55,7 +50,7 @@ class MoviesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.reuseId, for: indexPath) as! MovieTableViewCell
 
-        let movie : Movie = lesMovies[indexPath.item]
+        let movie : MoviePreview = lesMovies[indexPath.item]
         cell.titleLabel.text = movie.title
         //cell.subTitleLabel.text = movie.subTitle
         cell.dateLabel.text = String(movie.release_date)
@@ -64,16 +59,18 @@ class MoviesTableViewController: UITableViewController {
         cell.previewImage.image = nil
         let url = URL(string: "https://image.tmdb.org/t/p/w154/\(movie.poster_path)")!
         
-        DispatchQueue.main.async(execute: { () -> Void in
-            self.repository.getImgData(from: url, completion: {(data) in
-                guard let data = data else{
+        repository.getImgData(from: url, completion: {(data) in
+            guard let data = data else{
+                DispatchQueue.main.async(execute: { () -> Void in
                     cell.previewImage.image = UIImage(named: "img")
-                    return}
+                })
+                return}
+            DispatchQueue.main.async(execute: { () -> Void in
                 cell.previewImage.image =  UIImage(data: data)
-                       })
-            //cell.reloadInputViews()
-                //self.tableView.reloadData()
             })
+        })
+       
+       
             
         
         return cell
@@ -82,11 +79,11 @@ class MoviesTableViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView,didSelectRowAt indexPath : IndexPath){
         //print(indexPath)
-        let movie : Movie = lesMovies[indexPath.item]
+        let movie : MoviePreview = lesMovies[indexPath.item]
         //print("Movie with title \(movie.title) touched - index path \(indexPath)")
         
         let destController : MovieDetailsViewController = storyboard?.instantiateViewController(withIdentifier: "MovieDetails") as!MovieDetailsViewController
-        destController.unFilm = movie
+        destController.MoviePreview = movie
         
         //let destController : UIViewController = MovieDetailsViewController(nibName :"MovieDetailsViewController",bundle : nil)
         navigationController?.pushViewController(destController, animated: true)

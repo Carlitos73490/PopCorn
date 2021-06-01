@@ -7,8 +7,8 @@
 
 import Foundation
 
-struct Movies : Decodable {
-var results : [Movie]
+struct MoviesPreview : Decodable {
+var results : [MoviePreview]
     init(){
         results = Array()
 //        for i in 0...100 {
