@@ -11,12 +11,12 @@ struct MoviePreview : Decodable{
     var id : Int
     var title : String
     //var subTitle : String
-    var release_date : String
+    var release_date : String?
     var overview : String
-    var poster_path : String
+    var poster_path : String?
     
 
-    init(id : Int,title: String,release_date : String, genres : Array<Int>,overview : String,poster_path :String) {
+    init(id : Int,title: String,release_date : String?, genres : Array<Int>,overview : String,poster_path :String?) {
         self.id = id
         self.title = title
         self.release_date = release_date

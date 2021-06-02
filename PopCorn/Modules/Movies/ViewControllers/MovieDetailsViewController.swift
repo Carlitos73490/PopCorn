@@ -102,21 +102,27 @@ class MovieDetailsViewController: UIViewController {
         MovieTitle.text = MoviePreview?.title
         //MovieSubTitle.text = unFilm?.subTitle
         MovieSynopsis.text = MoviePreview?.overview
-        MovieYear.text = String(MoviePreview!.release_date)
+        MovieYear.text = String(MoviePreview?.release_date ?? "Pas de date")
    
-     
-        let url = URL(string: "https://image.tmdb.org/t/p/w500/\(MoviePreview!.poster_path)")!
-        
-        repository.getImgData(from: url, completion: {(data) in
-            guard let data = data else{
+        if MoviePreview?.poster_path != nil{
+            let url = URL(string: "https://image.tmdb.org/t/p/w500/\(MoviePreview!.poster_path!)")!
+            
+            repository.getImgData(from: url, completion: {(data) in
+                guard let data = data else{
+                    DispatchQueue.main.async(execute: { () -> Void in
+                        self.MoviePoster.image = UIImage(named: "img")
+                        })
+                    return}
                 DispatchQueue.main.async(execute: { () -> Void in
-                    self.MoviePoster.image = UIImage(named: "img")
-                    })
-                return}
-            DispatchQueue.main.async(execute: { () -> Void in
-        self.MoviePoster.image =  UIImage(data: data)                })
-    })
+            self.MoviePoster.image =  UIImage(data: data)
+                    
+                })
+            })
+              
+        }
+     
         
+     
 
         
     }

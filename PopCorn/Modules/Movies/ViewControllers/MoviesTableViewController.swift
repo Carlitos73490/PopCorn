@@ -7,6 +7,8 @@
 
 import UIKit
 
+
+
 class MoviesTableViewController: UITableViewController {
     
     var genre_id : Int?
@@ -48,30 +50,43 @@ class MoviesTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return lesMovies.count
     }
-
+    
+  
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: MovieTableViewCell.reuseId, for: indexPath) as! MovieTableViewCell
 
+        
+      
+        
         let movie : MoviePreview = lesMovies[indexPath.item]
         cell.titleLabel.text = movie.title
         //cell.subTitleLabel.text = movie.subTitle
-        cell.dateLabel.text = String(movie.release_date)
+        
+       
+        
+    
+        cell.dateLabel.text = String(movie.release_date ?? "pas de date")
+        
+    
         //cell.shortSynopsisLabel.text = String(movie.overview.prefix(50))
         cell.shortSynopsisLabel.text = movie.overview
         cell.previewImage.image = nil
-        let url = URL(string: "https://image.tmdb.org/t/p/w154/\(movie.poster_path)")!
-        
-        repository.getImgData(from: url, completion: {(data) in
-            guard let data = data else{
+        if movie.poster_path != nil{
+            let url = URL(string: "https://image.tmdb.org/t/p/w154/\(movie.poster_path!)")!
+            repository.getImgData(from: url, completion: {(data) in
+                guard let data = data else{
+                    DispatchQueue.main.async(execute: { () -> Void in
+                        cell.previewImage.image = UIImage(named: "img")
+                    })
+                    return}
                 DispatchQueue.main.async(execute: { () -> Void in
-                    cell.previewImage.image = UIImage(named: "img")
+                    cell.previewImage.image =  UIImage(data: data)
                 })
-                return}
-            DispatchQueue.main.async(execute: { () -> Void in
-                cell.previewImage.image =  UIImage(data: data)
             })
-        })
+        }
+        
+  
        
        
             
