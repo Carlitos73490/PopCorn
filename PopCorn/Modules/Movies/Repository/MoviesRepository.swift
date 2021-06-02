@@ -12,9 +12,9 @@ class MoviesRepository{
     }
     
     
-    func fetchMoviesByGenreIdPopularityDesc(genre_id : Int,completion : @escaping(_ _movies : Array<MoviePreview>) -> ()){
+    func fetchMoviesByGenreIdPopularityDesc(genre_id : Int,page_id : Int,completion : @escaping(_ _movies : Array<MoviePreview>) -> ()){
 
-        let url = URL(string: "https://api.themoviedb.org/3/discover/movie?api_key=34a34ddc26708de276169929baeab86f&with_genres=\(genre_id)&sort_by=popularity.desc&language=fr-FR")!
+        let url = URL(string: "https://api.themoviedb.org/3/discover/movie?api_key=34a34ddc26708de276169929baeab86f&with_genres=\(genre_id)&sort_by=popularity.desc&language=fr-FR&page=\(page_id)")!
     
         let task = URLSession.shared.dataTask(with: url)  {(data, response, error) in
             

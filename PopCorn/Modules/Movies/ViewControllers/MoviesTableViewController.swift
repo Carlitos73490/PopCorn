@@ -12,6 +12,8 @@ class MoviesTableViewController: UITableViewController {
     var genre_id : Int?
     var repository : MoviesRepository = MoviesRepository()
     var lesMovies : Array<MoviePreview> = Array()
+    var page_id : Int = 1
+    var canScroll : Bool = false
     
     
     override func viewDidLoad() {
@@ -28,10 +30,11 @@ class MoviesTableViewController: UITableViewController {
         guard let genre_id : Int = genre_id else {
            return
         }
-        repository.fetchMoviesByGenreIdPopularityDesc(genre_id: genre_id,completion: {(responseMovies) in
+        repository.fetchMoviesByGenreIdPopularityDesc(genre_id: genre_id,page_id: page_id,completion: {(responseMovies) in
             self.lesMovies = responseMovies
             DispatchQueue.main.async(execute: { () -> Void in
                 self.tableView.reloadData()
+                self.canScroll = true
                 })
         })
      
@@ -89,6 +92,35 @@ class MoviesTableViewController: UITableViewController {
         navigationController?.pushViewController(destController, animated: true)
     }
 
+
+    override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let lastElement = lesMovies.count - 1
+        if canScroll && indexPath.row == lastElement {
+           
+            
+            self.canScroll = false
+            self.page_id += 1
+            repository.fetchMoviesByGenreIdPopularityDesc(genre_id: genre_id!,page_id: page_id,completion: {(responseMovies) in
+
+                for (index, movie) in responseMovies.enumerated() {
+                    
+                  DispatchQueue.main.async(execute: { () -> Void in
+                    self.lesMovies.append(movie)
+                    self.tableView.insertRows(at: [indexPath], with: UITableView.RowAnimation.bottom)
+                    if( index == responseMovies.count - 1){
+                        self.canScroll = true
+                        
+                    }
+                  })
+                    
+                }
+               
+            
+            })
+        }
+    }
+    
+  
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
